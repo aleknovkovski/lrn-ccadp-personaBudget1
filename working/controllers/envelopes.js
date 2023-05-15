@@ -1,5 +1,5 @@
 let {envelopesDB} = require("../db");
-const {getById, updateById, deleteById} = require("../dbUtils")
+const {getById, updateById, deleteById, transferAmount} = require("../dbUtils")
 
 async function getEnvelopes (req, res, next) {
     try {
@@ -24,9 +24,21 @@ async function deleteEnvelope (req, res, next) {
     res.status(200).send(envelopesDB);
 }
 
+function transfer (req, res) {
+
+    const { fromId, toId } = req.params;
+    const { amount } = req.body
+
+    transferAmount(envelopesDB, fromId, toId, amount)
+    // const fromEnvelope = getById(envelopesDB, fromId);
+
+    return res.status(201).send(envelopesDB);
+}
+
 module.exports = {
     getEnvelopes,
     getEnvelopeByID,
     updateEnvelope,
-    deleteEnvelope
+    deleteEnvelope,
+    transfer
 }

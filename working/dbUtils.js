@@ -1,3 +1,5 @@
+const {envelopesDB} = require("./db");
+
 function getById(envelopes, id) {
   return envelopes.filter((envelope) => envelope.id === id)
 }
@@ -19,8 +21,17 @@ function deleteById(envelopes, id) {
     })
 }
 
+function transferAmount(envelopes, fromId, toId, amount) {
+    const fromEnvelope = envelopes.findIndex((envelope) => envelope.id === Number(fromId))
+    const toEnvelope = envelopes.findIndex((envelope) => envelope.id === Number(toId))
+    envelopes[fromEnvelope].budget -= amount
+    envelopes[toEnvelope].budget += amount
+}
+
+
 module.exports = {
     getById,
     updateById,
-    deleteById
+    deleteById,
+    transferAmount
 }
