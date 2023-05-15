@@ -1,4 +1,4 @@
-const envelopesDB = require("../db");
+const {envelopesDB, getById} = require("../db");
 
 async function getEnvelopes (req, res, next) {
     try {
@@ -10,6 +10,11 @@ async function getEnvelopes (req, res, next) {
   }
 }
 
+async function getEnvelopeByID (req, res, next) {
+    res.status(200).send(getById(1));
+}
+
 module.exports = {
-    getEnvelopes
+    getEnvelopes,
+    getEnvelopeByID
 }

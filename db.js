@@ -18,4 +18,11 @@ const envelopes = [
   },
 ];
 
-module.exports = envelopes;
+function getById(id) {
+  return envelopes.filter((envelope) => envelope.id === id)
+}
+
+module.exports = {
+  envelopes,
+  getById
+};
