@@ -11,7 +11,7 @@ async function getEnvelopes (req, res, next) {
 }
 
 async function getEnvelopeByID (req, res, next) {
-    res.status(200).send(getById(1));
+    res.status(200).send(getById(req.envelopeID));
 }
 
 module.exports = {
