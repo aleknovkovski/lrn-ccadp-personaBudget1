@@ -1,4 +1,5 @@
-const {envelopesDB, getById, updateById} = require("../db");
+let {envelopesDB} = require("../db");
+const {getById, updateById, deleteById} = require("../dbUtils")
 
 async function getEnvelopes (req, res, next) {
     try {
@@ -9,17 +10,23 @@ async function getEnvelopes (req, res, next) {
 }
 
 async function getEnvelopeByID (req, res, next) {
-    res.status(200).send(getById(req.envelopeID));
+    res.status(200).send(getById(envelopesDB, req.envelopeID));
 }
 
 async function updateEnvelope (req, res, next) {
     const { title, budget } = req.body;
-    updateById(req.envelopeID, title, budget)
+    updateById(envelopesDB, req.envelopeID, title, budget)
+    res.status(200).send(envelopesDB);
+}
+
+async function deleteEnvelope (req, res, next) {
+    deleteById(envelopesDB, req.envelopeID)
     res.status(200).send(envelopesDB);
 }
 
 module.exports = {
     getEnvelopes,
     getEnvelopeByID,
-    updateEnvelope
+    updateEnvelope,
+    deleteEnvelope
 }
